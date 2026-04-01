@@ -2,9 +2,14 @@ package Zorvyn_Test.Backend.service;
 
 import Zorvyn_Test.Backend.dto.FinancialRecordRequest;
 import Zorvyn_Test.Backend.model.FinancialRecord;
+import Zorvyn_Test.Backend.model.RecordType;
 import Zorvyn_Test.Backend.repository.FinancialRecordRepository;
+import Zorvyn_Test.Backend.repository.FinancialRecordSpecification;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,8 +34,9 @@ public class RecordService {
         return recordRepository.save(record);
     }
 
-    public List<FinancialRecord> getAllActiveRecords() {
-        return recordRepository.findByDeletedFalseOrderByDateDesc();
+    public List<FinancialRecord> getAllActiveRecords(RecordType type, String category, LocalDate startDate, LocalDate endDate) {
+        Specification<FinancialRecord> spec = FinancialRecordSpecification.getFilteredRecords(type, category, startDate, endDate);
+        return recordRepository.findAll(spec, Sort.by(Sort.Direction.DESC, "date"));
     }
 
     public FinancialRecord updateRecord(UUID id, FinancialRecordRequest request) {
