@@ -42,8 +42,6 @@ public class FinancialRecord {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // Added to support deleting without physically removing data if we implement soft delete later 
-    // (though not strictly required right now)
     @Builder.Default
     @Column(nullable = false)
     private boolean deleted = false;

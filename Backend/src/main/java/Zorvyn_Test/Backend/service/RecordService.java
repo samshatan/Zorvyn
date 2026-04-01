@@ -50,7 +50,6 @@ public class RecordService {
         return recordRepository.save(existing);
     }
 
-    // Implementing Soft Delete as a thoughtful addition
     public void deleteRecord(UUID id) {
         FinancialRecord existing = recordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Record not found with ID: " + id));

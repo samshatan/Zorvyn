@@ -21,28 +21,24 @@ public class RecordController {
         this.recordService = recordService;
     }
 
-    // Admins and Analysts and Viewers can all READ records. Viewers can only view.
     @GetMapping
     @PreAuthorize("hasAnyRole('VIEWER', 'ANALYST', 'ADMIN')")
     public ResponseEntity<List<FinancialRecord>> getAllRecords() {
         return ResponseEntity.ok(recordService.getAllActiveRecords());
     }
 
-    // Only Admins can CREATE records
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<FinancialRecord> createRecord(@Valid @RequestBody FinancialRecordRequest request) {
         return ResponseEntity.ok(recordService.createRecord(request));
     }
 
-    // Only Admins can UPDATE records
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<FinancialRecord> updateRecord(@PathVariable UUID id, @Valid @RequestBody FinancialRecordRequest request) {
         return ResponseEntity.ok(recordService.updateRecord(id, request));
     }
 
-    // Only Admins can DELETE records
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteRecord(@PathVariable UUID id) {

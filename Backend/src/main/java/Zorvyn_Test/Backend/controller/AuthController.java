@@ -22,9 +22,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         String token = authService.authenticateUser(loginRequest);
-        // Getting user details implies we can send role/username back but for simplicity we return just token 
-        // Although the JWT has the username in it already. Let's just return what we have.
-        return ResponseEntity.ok(new JwtResponse(token, loginRequest.getUsername(), "N/A")); 
+        return ResponseEntity.ok(new JwtResponse(token, loginRequest.getUsername(), "N/A"));
     }
 
     @PostMapping("/register")

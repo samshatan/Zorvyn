@@ -18,7 +18,6 @@ public class DashboardController {
         this.dashboardService = dashboardService;
     }
 
-    // Analysts and Admins can view analytics. Viewers cannot view summaries.
     @GetMapping("/summary")
     @PreAuthorize("hasAnyRole('ANALYST', 'ADMIN')")
     public ResponseEntity<DashboardSummaryDto> getSummary() {
