@@ -28,7 +28,16 @@ To make evaluating the API as seamless as possible, this application integrates 
 Start the application and navigate to:
 **[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)**
 
-Through Swagger, you can visually inspect models and test all endpoints directly.
+### Key Endpoints Overview
+- **Authentication**: `POST /api/auth/register`, `POST /api/auth/login`
+- **Records**: `GET /api/records`, `POST /api/records`, `PUT /api/records/{id}`, `DELETE /api/records/{id}`
+- **Dashboard**: `GET /api/dashboard/summary`
+
+**Testing Protected Routes in Swagger:**
+1. Use the `POST /api/auth/register` and `POST /api/auth/login` endpoints to generate a JWT token.
+2. Copy the `token` string from the response.
+3. Click the **"Authorize"** button at the top of the Swagger UI and enter your token (you do not need to type "Bearer ", Swagger handles the format).
+4. You can now execute and test all the protected endpoints natively!
 
 ---
 
